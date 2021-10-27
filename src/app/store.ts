@@ -1,8 +1,9 @@
 import logger from 'redux-logger';
 import thunk, {ThunkMiddleware} from 'redux-thunk';
-import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
+import {configureStore, ThunkAction, Action, SliceCaseReducers} from '@reduxjs/toolkit';
 import searchReducer from '../features/search/searchReducer';
 
+// @ts-ignore
 export const store = configureStore({
   reducer: {
     search: searchReducer,
@@ -18,6 +19,7 @@ export const store = configureStore({
 });
 
 export type AppDispatch = typeof store.dispatch;
+// ts-ignore
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -25,3 +27,9 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+export type ThunkAPI = {
+  dispatch: AppDispatch;
+  state: AppState;
+  rejectValue: SerializedError;
+};

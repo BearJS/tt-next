@@ -92,5 +92,11 @@ module.exports = {
         '@typescript-eslint/no-use-before-define': 1,
       },
     },
+    {
+      files: ['store.ts'],
+      rules: {
+        '@typescript-eslint/ban-ts-comment': 0,
+      },
+    },
   ],
 };

@@ -8,9 +8,6 @@ interface ThunkDefaultState {
   error?: SerializedError;
 }
 
-interface ThunkAction {
-  error?: string;
-  meta: {
-    requestId?: string;
-  };
+interface AppState {
+  search: SearchState;
 }

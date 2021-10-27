@@ -4,8 +4,7 @@ import {
   createSlice,
   SliceCaseReducers,
 } from '@reduxjs/toolkit';
-import {iTunesSearchByArtistCollectionSong} from '../../api/iTunesSearchAPI';
-import {AppDispatch, RootState} from '../../app/store';
+import {ThunkAPI} from '../../app/store';
 
 type Query = {term: string}; // Record<string, string>;
 
@@ -17,7 +16,7 @@ export const searchByArtistCollectionSong = createAsyncThunk<
   // First argument to the payload creator
   Query,
   // Types for ThunkAPI
-  {dispatch: AppDispatch; state: RootState; rejectValue: string}
+  ThunkAPI
 >(
   `${name}/fetchByIdStatus`,
   async (query: Query, {getState, requestId}): Promise<iTunesSearchResult[]> => {
@@ -25,8 +24,10 @@ export const searchByArtistCollectionSong = createAsyncThunk<
     if (loading !== 'pending' || requestId !== currentRequestId) {
       return [];
     }
+    const queryString = new URLSearchParams(query).toString();
+    const response = await fetch(`https://itunes.apple.com/search?${queryString}`);
 
-    return (await iTunesSearchByArtistCollectionSong(query)) as iTunesSearchResult[];
+    return (await response.json()) as iTunesSearchResult[];
   }
 );
 
@@ -37,7 +38,7 @@ const initialState: SearchState = {
 };
 
 // Then, handle actions in your reducers:
-const searchSlice = createSlice<SearchState, SliceCaseReducers<RootState>, 'search'>({
+const searchSlice = createSlice({
   name,
   initialState,
   reducers: {
@@ -72,6 +73,3 @@ const searchSlice = createSlice<SearchState, SliceCaseReducers<RootState>, 'sear
 });
 
 export default searchSlice.reducer;
-
-// Later, dispatch the thunk as needed in the app
-// dispatch(fetchUserById(123));

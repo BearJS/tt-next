@@ -60,8 +60,7 @@ const SearchForm = () => {
       <H1>🎵 Find Your Favourite Tunes 🎵</H1>
       <Fieldset legend="Search by artist, album or song">
         <Input
-          id="term"
-          fieldPropsFromForm={getFieldPropsFromForm('search')}
+          fieldPropsFromForm={getFieldPropsFromForm('term')}
           label="Search Term"
           value={term}
         />
