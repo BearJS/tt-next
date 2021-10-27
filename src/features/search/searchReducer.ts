@@ -27,7 +27,9 @@ export const searchByArtistCollectionSong = createAsyncThunk<
     const queryString = new URLSearchParams(query).toString();
     const response = await fetch(`https://itunes.apple.com/search?${queryString}`);
 
-    return (await response.json()) as iTunesSearchResult[];
+    const {results} = await response.json();
+
+    return results as iTunesSearchResult[];
   }
 );
 

@@ -5,7 +5,7 @@ import useForm from './forms/useForm';
 import Input from './forms/Input';
 import Button from './forms/Button';
 import {H1} from './wrappers';
-import {useAppDispatch} from '../app/hooks';
+import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {searchByArtistCollectionSong} from '../features/search/searchReducer';
 import {AppDispatch} from '../app/store';
 
@@ -26,6 +26,7 @@ const initialFormValues: FormValues = {
 
 const SearchForm = () => {
   const dispatch: AppDispatch = useAppDispatch();
+  const {results} = useAppSelector((state) => state.search);
   const {
     formValues,
     fieldStates: {errors, touched, dirty},
@@ -42,8 +43,6 @@ const SearchForm = () => {
   });
 
   const {term} = formValues;
-
-  console.log(term);
 
   const handleClick = (): void => {
     console.log(formValues);
@@ -67,6 +66,7 @@ const SearchForm = () => {
 
         <Button handleClick={handleClick}>Submit</Button>
       </Fieldset>
+      <pre>{JSON.stringify(results, null, 2)}</pre>
     </FormStyles>
   );
 };
