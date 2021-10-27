@@ -34,3 +34,23 @@ interface iTunesSearchResult {
   currency: string; // 'USD';
   primaryGenreName: string; // 'Rock';
 }
+
+// https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/Searching.html#//apple_ref/doc/uid/TP40017632-CH5-SW1
+type iTunesSearchQueryParams = {
+  term: string;
+  limit?: string; // 1-200
+  country?: string; // http://en.wikipedia.org/wiki/ ISO_3166-1_alpha-2
+  media?:
+    | 'movie'
+    | 'podcast'
+    | 'music'
+    | 'musicVideo'
+    | 'audiobook'
+    | 'shortFilm'
+    | 'tvShow'
+    | 'software'
+    | 'ebook'
+    | 'all'; // default 'all'
+  explicit?: 'Yes' | 'No'; // Default 'Yes',
+  version?: '1' | '2'; // default '2'
+};

@@ -8,6 +8,7 @@ import {H1} from './wrappers';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {searchByArtistCollectionSong} from '../features/search/searchReducer';
 import {AppDispatch} from '../app/store';
+import SearchResultCard from './SearchResultCard';
 
 const FormStyles = styled.form`
   margin: ${(props) => props.theme.defaultPadding};
@@ -46,7 +47,7 @@ const SearchForm = () => {
 
   const handleClick = (): void => {
     console.log(formValues);
-    dispatch(searchByArtistCollectionSong({term}));
+    dispatch(searchByArtistCollectionSong({term, limit: '10'}));
   };
 
   return (
@@ -66,7 +67,12 @@ const SearchForm = () => {
 
         <Button handleClick={handleClick}>Submit</Button>
       </Fieldset>
-      <pre>{JSON.stringify(results, null, 2)}</pre>
+      {results.map((i: iTunesSearchResult) => (
+        <SearchResultCard
+          data={i}
+          key={`${i.kind}-${i.trackId}-${i.artistId}-${i.collectionId}`}
+        />
+      ))}
     </FormStyles>
   );
 };

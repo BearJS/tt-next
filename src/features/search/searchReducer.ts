@@ -1,12 +1,5 @@
-import {
-  ActionReducerMapBuilder,
-  createAsyncThunk,
-  createSlice,
-  SliceCaseReducers,
-} from '@reduxjs/toolkit';
+import {ActionReducerMapBuilder, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {ThunkAPI} from '../../app/store';
-
-type Query = {term: string}; // Record<string, string>;
 
 const name = 'search';
 
@@ -14,17 +7,20 @@ export const searchByArtistCollectionSong = createAsyncThunk<
   // Return type of the payload creator
   iTunesSearchResult[],
   // First argument to the payload creator
-  Query,
+  iTunesSearchQueryParams,
   // Types for ThunkAPI
   ThunkAPI
 >(
   `${name}/fetchByIdStatus`,
-  async (query: Query, {getState, requestId}): Promise<iTunesSearchResult[]> => {
+  async (
+    query: iTunesSearchQueryParams,
+    {getState, requestId}
+  ): Promise<iTunesSearchResult[]> => {
     const {currentRequestId, loading} = getState().search;
     if (loading !== 'pending' || requestId !== currentRequestId) {
       return [];
     }
-    const queryString = new URLSearchParams(query).toString();
+    const queryString = new URLSearchParams(query as Record<string, string>).toString();
     const response = await fetch(`https://itunes.apple.com/search?${queryString}`);
 
     const {results} = await response.json();
