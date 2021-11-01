@@ -22,7 +22,22 @@ const Container = styled.div<{wrapperType: iTunesWrapperType}>`
     width: 100px;
     margin-right: 10px;
   }
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    margin: 0;
+  }
 `;
+
+const ListItem: FC<{fieldName: string; value: string}> = ({fieldName, value}) => (
+  <>
+    <dt>{fieldName}</dt>
+    <dd>{value || '-'}</dd>
+  </>
+);
 
 const SearchResultCard: FC<{data: iTunesSearchResult}> = ({data}) => {
   const [expanded, setExpanded] = useState(false);
@@ -38,22 +53,13 @@ const SearchResultCard: FC<{data: iTunesSearchResult}> = ({data}) => {
         src={artworkUrl100}
         alt={`Artwork for ${artistName} - ${collectionName} - ${trackName}`}
       />
-      <div>
-        <p>
-          <strong>Artist:</strong> {artistName}
-        </p>
-        <p>
-          <strong>Collection:</strong> {collectionName}
-        </p>
-        <p>
-          <strong>Track:</strong> {trackName}
-        </p>
-        <p>
-          <strong>Kind: </strong>
-          {kind}
-        </p>
+      <dl>
+        <ListItem fieldName="Artist" value={artistName} />
+        <ListItem fieldName="Collection" value={collectionName} />
+        <ListItem fieldName="Track" value={trackName} />
+        <ListItem fieldName="Kind" value={kind} />
         <pre>{JSON.stringify(data, null, 4)}</pre>
-      </div>
+      </dl>
     </Container>
   );
 };
