@@ -1,4 +1,4 @@
-import {SyntheticEvent, useEffect} from 'react';
+import {useEffect} from 'react';
 
 interface Params {
   handleScrolledToBottom: () => void;
