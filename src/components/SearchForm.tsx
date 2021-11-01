@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import Fieldset from './forms/Fieldset';
 import useForm from './forms/useForm';
@@ -10,6 +10,7 @@ import {searchByArtistCollectionSong} from '../features/search/searchReducer';
 import {AppDispatch} from '../app/store';
 import SearchResultCard from './SearchResultCard';
 import LoadingIndicator from './LoadingIndicator';
+import useScrollToBottom from './scroll/useScrollToBottom';
 
 const FormStyles = styled.form`
   margin: ${(props) => props.theme.defaultPadding};
@@ -40,6 +41,12 @@ const SearchForm = () => {
     },
     opts: {
       validateOnBlur: true,
+    },
+  });
+
+  useScrollToBottom({
+    handleScrolledToBottom: (): void => {
+      console.log('scrolled to bottom');
     },
   });
 
