@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Fieldset from './forms/Fieldset';
 import useForm from './forms/useForm';
 import Input from './forms/Input';
 import Button from './forms/Button';
-import {H1} from './wrappers';
+import {FloatingCard, H1} from './wrappers';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {searchByArtistCollectionSong} from '../features/search/searchReducer';
 import {AppDispatch} from '../app/store';
@@ -19,6 +19,11 @@ const FormStyles = styled.form`
   border-radius: 3px;
 `;
 
+const ResultsCounter = styled(FloatingCard)`
+  display: inline-block;
+  top: 15px;
+`;
+
 interface FormValues {
   term: string;
 }
@@ -29,6 +34,7 @@ const initialFormValues: FormValues = {
 
 const SearchForm = () => {
   const dispatch: AppDispatch = useAppDispatch();
+  const [resultsCount, setResultsCount] = useState(10);
   const {results, loading} = useAppSelector((state) => state.search);
   const {
     formValues,
@@ -44,17 +50,24 @@ const SearchForm = () => {
     },
   });
 
-  useScrollToBottom({
-    handleScrolledToBottom: (): void => {
-      console.log('scrolled to bottom');
-    },
-  });
+  const isLoading = loading === 'pending';
 
   const {term} = formValues;
 
+  useScrollToBottom({
+    handleScrolledToBottom: (): void => {
+      if (resultsCount < 200) {
+        setResultsCount((prevCount) => prevCount + 10);
+      }
+    },
+  });
+  useEffect(() => {
+    dispatch(searchByArtistCollectionSong({term, limit: `${resultsCount}`}));
+  }, [resultsCount]);
+
   const handleClick = (): void => {
-    console.log(formValues);
     dispatch(searchByArtistCollectionSong({term, limit: '10'}));
+    setResultsCount(10);
   };
 
   return (
@@ -71,17 +84,26 @@ const SearchForm = () => {
           label="Search Term"
           value={term}
         />
-        <Button handleClick={handleClick}>Submit</Button>
+        <Button handleClick={handleClick} disabled={isLoading}>
+          Submit
+        </Button>
       </Fieldset>
-      {loading === 'pending' && (
-        <LoadingIndicator message={`Retrieving results form search term ${term}`} />
+      {isLoading && (
+        <LoadingIndicator message={`Retrieving results form search term: "${term}"`} />
       )}
+      <ResultsCounter>Results: {results.length}</ResultsCounter>
       {results.map((i: iTunesSearchResult) => (
         <SearchResultCard
           data={i}
           key={`${i.kind}-${i.trackId}-${i.artistId}-${i.collectionId}`}
         />
       ))}
+      {results.length === 200 && (
+        <div>
+          You have reached the search limit of 200 results. No more tracks will be
+          displayed. Please refine your search if you do not see the result you are after.
+        </div>
+      )}
     </FormStyles>
   );
 };
