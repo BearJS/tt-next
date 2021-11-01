@@ -27,6 +27,7 @@ interface iTunesSearchResult {
   collectionExplicitness: string; // 'notExplicit';
   trackExplicitness: string; // 'notExplicit';
   discCount: number; // 1;
+  releaseDate: string;
   discNumber: number; // 1;
   trackCount: number; // 14;
   trackNumber: number; // 1;

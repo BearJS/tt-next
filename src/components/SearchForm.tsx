@@ -9,6 +9,7 @@ import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {searchByArtistCollectionSong} from '../features/search/searchReducer';
 import {AppDispatch} from '../app/store';
 import SearchResultCard from './SearchResultCard';
+import LoadingIndicator from './LoadingIndicator';
 
 const FormStyles = styled.form`
   margin: ${(props) => props.theme.defaultPadding};
@@ -27,10 +28,9 @@ const initialFormValues: FormValues = {
 
 const SearchForm = () => {
   const dispatch: AppDispatch = useAppDispatch();
-  const {results} = useAppSelector((state) => state.search);
+  const {results, loading} = useAppSelector((state) => state.search);
   const {
     formValues,
-    fieldStates: {errors, touched, dirty},
     formMethods: {getFieldPropsFromForm},
   } = useForm<FormValues>({
     initialFormValues,
@@ -64,9 +64,11 @@ const SearchForm = () => {
           label="Search Term"
           value={term}
         />
-
         <Button handleClick={handleClick}>Submit</Button>
       </Fieldset>
+      {loading === 'pending' && (
+        <LoadingIndicator message={`Retrieving results form search term ${term}`} />
+      )}
       {results.map((i: iTunesSearchResult) => (
         <SearchResultCard
           data={i}

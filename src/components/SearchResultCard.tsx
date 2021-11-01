@@ -1,34 +1,57 @@
 import * as React from 'react';
 import {FC, useState} from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
-const Container = styled.div<{wrapperType: iTunesWrapperType}>`
+const Container = styled.div<{kind: string}>`
   display: flex;
+  flex-wrap: wrap;
   ${(props) => props.theme.border};
   margin-bottom: 8px;
   padding: 1em;
-  ${(props) =>
-    props.wrapperType === 'track' &&
-    `background: ${props.theme.notificationStyles.primary};`};
-  ${(props) =>
-    props.wrapperType === 'collection' &&
-    `background: ${props.theme.notificationStyles.info};`};
-  ${(props) =>
-    props.wrapperType === 'artist' &&
-    `background: ${props.theme.notificationStyles.secondary};`};
+  ${(props) => {
+    let background = '';
 
-  img {
-    height: 100px;
+    switch (props.kind) {
+      case 'song':
+        background = `background: ${props.theme.notificationStyles.primary};`;
+        break;
+      case 'feature-movie':
+        background = `background: ${props.theme.notificationStyles.secondary};`;
+        break;
+      default:
+        background = `background: ${props.theme.notificationStyles.dark};`;
+        break;
+    }
+
+    return background;
+  }}
+
+  .img-container {
     width: 100px;
-    margin-right: 10px;
+    flex: 0 1 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+
+    img {
+      max-height: 100px;
+      max-width: 100px;
+    }
   }
 
-  dt {
-    font-weight: bold;
-  }
+  dl {
+    flex: 1 1 auto;
 
-  dd {
-    margin: 0;
+    dt {
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+
+    dd {
+      margin: 0;
+    }
   }
 `;
 
@@ -46,19 +69,24 @@ const SearchResultCard: FC<{data: iTunesSearchResult}> = ({data}) => {
     setExpanded(!expanded);
   };
 
-  const {artistName, collectionName, trackName, wrapperType, artworkUrl100, kind} = data;
+  const {artistName, collectionName, trackName, artworkUrl100, kind, releaseDate} = data;
   return (
-    <Container wrapperType={wrapperType}>
-      <img
-        src={artworkUrl100}
-        alt={`Artwork for ${artistName} - ${collectionName} - ${trackName}`}
-      />
+    <Container kind={kind}>
+      <div className="img-container">
+        <img
+          src={artworkUrl100}
+          alt={`Artwork for ${artistName} - ${collectionName} - ${trackName}`}
+        />
+      </div>
       <dl>
-        <ListItem fieldName="Artist" value={artistName} />
-        <ListItem fieldName="Collection" value={collectionName} />
-        <ListItem fieldName="Track" value={trackName} />
-        <ListItem fieldName="Kind" value={kind} />
-        <pre>{JSON.stringify(data, null, 4)}</pre>
+        <ListItem fieldName="artist" value={artistName} />
+        <ListItem fieldName="collection" value={collectionName} />
+        <ListItem fieldName="track" value={trackName} />
+        <ListItem fieldName="kind" value={kind} />
+        <ListItem
+          fieldName="release date"
+          value={releaseDate && moment(releaseDate).format('dddd, Do MMMM YYYY')}
+        />
       </dl>
     </Container>
   );

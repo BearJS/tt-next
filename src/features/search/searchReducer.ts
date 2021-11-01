@@ -55,7 +55,7 @@ const searchSlice = createSlice({
         const {requestId} = action.meta;
         if (state.loading === 'pending' && state.currentRequestId === requestId) {
           state.loading = 'idle';
-          state.results = [...state.results, ...action.payload];
+          state.results = action.payload;
           state.currentRequestId = undefined;
         }
       })
