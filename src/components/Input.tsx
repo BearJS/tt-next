@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import styled from 'styled-components';
 import FieldFeedback from './FieldFeedback';
-import {FormLabel} from '../wrappers';
+import {FormLabel} from './wrappers';
 
 const InputWrapper = styled.input`
   ${(props) => props.theme.input};

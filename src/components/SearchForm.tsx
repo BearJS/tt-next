@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import Fieldset from './forms/Fieldset';
-import useForm from './forms/useForm';
-import Input from './forms/Input';
+import Fieldset from './Fieldset';
+import useForm from '../hooks/useForm';
+import Input from './Input';
 import Button from './Button';
 import {FloatingCard, H1} from './wrappers';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
@@ -10,7 +10,7 @@ import {searchByArtistCollectionSong} from '../app/state/searchReducer';
 import {AppDispatch} from '../app/state/store';
 import SearchResultCard from './SearchResultCard';
 import LoadingIndicator from './LoadingIndicator';
-import useScrollToBottom from './scroll/useScrollToBottom';
+import useScrollToBottom from '../hooks/useScrollToBottom';
 
 const FormStyles = styled.form`
   margin: ${(props) => props.theme.defaultPadding};
