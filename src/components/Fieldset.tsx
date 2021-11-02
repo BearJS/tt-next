@@ -2,9 +2,9 @@ import React, {FC} from 'react';
 import styled from 'styled-components';
 
 const FieldsetStyles = styled.fieldset<FieldsetStyleProps>`
-  margin-bottom: 8px;
+  margin-bottom: ${(props) => props.theme.defaultPadding};
   ${(props) => props.theme.border};
-  ${(props) => props.disabled && `opacity: 0.5`};
+  ${(props) => props.disabled && props.theme.opacityDisabled};
   ${(props) => props.inline && `display: flex;`};
 `;
 

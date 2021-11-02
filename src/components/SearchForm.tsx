@@ -4,7 +4,7 @@ import Fieldset from './Fieldset';
 import useForm from '../hooks/useForm';
 import Input from './Input';
 import Button from './Button';
-import {FloatingCard, H1} from './wrappers';
+import {FloatingCard, FormRequiredFields, H1} from './wrappers';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {searchByArtistCollectionSong} from '../app/state/searchReducer';
 import {AppDispatch} from '../app/state/store';
@@ -68,9 +68,16 @@ const SearchForm = () => {
       }}
     >
       <H1>🎵 Find Your Favourite Tunes 🎵</H1>
+      <FormRequiredFields />
       <Fieldset legend="Search by artist, album or song">
-        <Input handleChange={handleChange} id="term" label="Search Term" value={term} />
-        <Button handleClick={handleClick} disabled={isLoading}>
+        <Input
+          handleChange={handleChange}
+          id="term"
+          label="Search Term"
+          value={term}
+          required
+        />
+        <Button handleClick={handleClick} disabled={isLoading || !term}>
           Submit
         </Button>
       </Fieldset>

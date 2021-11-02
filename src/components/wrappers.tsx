@@ -12,6 +12,7 @@ export const FloatingCard = styled.div`
   margin: ${(props) => props.theme.defaultPadding};
   padding: ${(props) => props.theme.defaultPadding};
   right: 15px;
+  ${(props) => props.theme.boxShadow};
 `;
 
 export const FormRequiredFields = styled.div`
@@ -29,6 +30,7 @@ export const FormLabel = styled.label<{required?: boolean}>`
     const {required} = props;
     return `
       ${required && `&:after {content: '*'}`}
+ 
     `;
   }};
 `;

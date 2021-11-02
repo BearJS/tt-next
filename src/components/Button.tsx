@@ -9,7 +9,7 @@ const ButtonStyles = styled.button<ButtonStyleProps>`
 
   ${(props) => {
     const {
-      theme: {borderRadius, anchorColor, defaultPadding, primaryColor},
+      theme: {borderRadius, anchorColor, defaultPadding, primaryColor, opacityDisabled},
       informationPanel,
       block,
       mb,
@@ -44,7 +44,7 @@ const ButtonStyles = styled.button<ButtonStyleProps>`
       ${ml && `margin-left: ${defaultPadding}`}
       ${block && `display: block; width: 100%;`}
       ${flex && `display: flex;`}
-      ${disabled && `opacity: 0.5;`}
+      ${disabled && opacityDisabled}
       ${anchor &&
       `
     background: none;

@@ -61,9 +61,6 @@ export const baseStyles = {
   borderRadius: `border-radius: 3px;`,
   opacityDisabled: `opacity: 0.50;`,
   boxShadow: `box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%),0px 1px 3px 0px rgb(0 0 0 / 12%);`,
-  defaultFontFamily: `font-family: arboria, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-  'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-  'Segoe UI Symbol'`,
   formFieldFocus: `
     &:focus,
     &:focus-within,
