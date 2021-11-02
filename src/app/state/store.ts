@@ -1,7 +1,7 @@
 import logger from 'redux-logger';
 import thunk, {ThunkMiddleware} from 'redux-thunk';
-import {configureStore, ThunkAction, Action, SliceCaseReducers} from '@reduxjs/toolkit';
-import searchReducer from '../features/search/searchReducer';
+import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
+import searchReducer from './searchReducer';
 
 // @ts-ignore
 export const store = configureStore({

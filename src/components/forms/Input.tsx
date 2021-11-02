@@ -1,20 +1,13 @@
 import React, {FC} from 'react';
 import styled from 'styled-components';
 import FieldFeedback from './FieldFeedback';
-import {FormLabel} from './wrappers';
-import {getDescriptionId} from './utils';
+import {FormLabel} from '../wrappers';
 
 const InputWrapper = styled.input`
   ${(props) => props.theme.input};
 `;
 
-interface Props extends InputProps<string | number> {
-  type?: 'text' | 'number' | 'password' | 'date';
-  min?: string | number;
-  max?: string | number;
-}
-
-const Input: FC<Props> = (props) => {
+const Input: FC<InputProps<string | number>> = (props) => {
   const {
     placeholder,
     name,
@@ -27,11 +20,13 @@ const Input: FC<Props> = (props) => {
     readOnly,
     required,
     description,
-    fieldPropsFromForm: {handleBlur, handleChange, error, id},
+    handleChange,
+    error,
+    id,
+    handleBlur,
   } = props;
 
-  const descriptionId = getDescriptionId(id, description);
-
+  const descriptionId = description ? `${id}_description` : '';
   return (
     <>
       <FormLabel htmlFor={id} required={required}>
@@ -51,11 +46,13 @@ const Input: FC<Props> = (props) => {
         onBlur={handleBlur}
         aria-describedby={descriptionId}
       />
-      <FieldFeedback
-        descriptionId={descriptionId}
-        error={error}
-        description={description}
-      />
+      {description && (
+        <FieldFeedback
+          descriptionId={descriptionId}
+          error={error}
+          description={description}
+        />
+      )}
     </>
   );
 };

@@ -18,15 +18,11 @@ interface Props {
   descriptionId: string;
 }
 
-const FieldFeedback: FC<Props> = ({error, description, descriptionId}) => {
-  return (
-    <>
-      {error && <FieldError>{error}</FieldError>}
-      {description && (
-        <FieldDescription id={descriptionId}>{description}</FieldDescription>
-      )}
-    </>
-  );
-};
+const FieldFeedback: FC<Props> = ({error, description, descriptionId}) => (
+  <>
+    {error && <FieldError>{error}</FieldError>}
+    {description && <FieldDescription id={descriptionId}>{description}</FieldDescription>}
+  </>
+);
 
 export default FieldFeedback;

@@ -1,5 +1,5 @@
 import {ActionReducerMapBuilder, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {ThunkAPI} from '../../app/store';
+import {ThunkAPI} from './store';
 
 const name = 'search';
 

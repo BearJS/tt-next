@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import {Provider} from 'react-redux';
-import {store} from './app/store';
+import {store} from './app/state/store';
 import * as serviceWorker from './serviceWorker';
 import SearchForm from './components/SearchForm';
 import Styles from './components/Styles';

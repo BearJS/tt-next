@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import Fieldset from './forms/Fieldset';
 import useForm from './forms/useForm';
 import Input from './forms/Input';
-import Button from './forms/Button';
+import Button from './Button';
 import {FloatingCard, H1} from './wrappers';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
-import {searchByArtistCollectionSong} from '../features/search/searchReducer';
-import {AppDispatch} from '../app/store';
+import {searchByArtistCollectionSong} from '../app/state/searchReducer';
+import {AppDispatch} from '../app/state/store';
 import SearchResultCard from './SearchResultCard';
 import LoadingIndicator from './LoadingIndicator';
 import useScrollToBottom from './scroll/useScrollToBottom';
@@ -36,18 +36,8 @@ const SearchForm = () => {
   const dispatch: AppDispatch = useAppDispatch();
   const [resultsCount, setResultsCount] = useState(10);
   const {results, loading} = useAppSelector((state) => state.search);
-  const {
-    formValues,
-    formMethods: {getFieldPropsFromForm},
-  } = useForm<FormValues>({
+  const {formValues, handleChange} = useForm<FormValues>({
     initialFormValues,
-    validators: {
-      search: (value) =>
-        !value ? 'Please enter a search term, i.e. an artist, album or song' : undefined,
-    },
-    opts: {
-      validateOnBlur: true,
-    },
   });
 
   const isLoading = loading === 'pending';
@@ -79,11 +69,7 @@ const SearchForm = () => {
     >
       <H1>🎵 Find Your Favourite Tunes 🎵</H1>
       <Fieldset legend="Search by artist, album or song">
-        <Input
-          fieldPropsFromForm={getFieldPropsFromForm('term')}
-          label="Search Term"
-          value={term}
-        />
+        <Input handleChange={handleChange} id="term" label="Search Term" value={term} />
         <Button handleClick={handleClick} disabled={isLoading}>
           Submit
         </Button>
