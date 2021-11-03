@@ -84,19 +84,19 @@ const SearchForm = () => {
       {isLoading && (
         <LoadingIndicator message={`Retrieving results form search term: "${term}"`} />
       )}
-      <ResultsCounter>Results: {results.length}</ResultsCounter>
+      {results.length ? <ResultsCounter>Results: {results.length}</ResultsCounter> : null}
       {results.map((i: iTunesSearchResult) => (
         <SearchResultCard
           data={i}
           key={`${i.kind}-${i.trackId}-${i.artistId}-${i.collectionId}`}
         />
       ))}
-      {results.length === 200 && (
+      {results.length === 200 ? (
         <div>
           You have reached the search limit of 200 results. No more tracks will be
           displayed. Please refine your search if you do not see the result you are after.
         </div>
-      )}
+      ) : null}
     </FormStyles>
   );
 };
