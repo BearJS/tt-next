@@ -44,15 +44,17 @@ const SearchForm = () => {
   const resultsCount = results.length;
   useScrollToBottom({
     handleScrolledToBottom: (): void => {
+      // Each time we scroll to the bottom of the page and we have a search term in the state and the limit is below 200, we want to increment the limit
       if (term && limit < 200) {
-        console.log('has term');
         setLimit((prevCount) => prevCount + defaultLimit);
       }
     },
     dep: [term, limit],
   });
+
+  // Incrementing the limit will trigger the search
   useEffect(() => {
-    if (term && resultsCount !== 200) {
+    if (term) {
       dispatch(searchByArtistCollectionSong({term, limit: `${limit}`}));
     }
   }, [limit]);
