@@ -22,6 +22,9 @@ const Container = styled.div<{kind: iTunesKind}>`
       case 'podcast':
         theme = notificationStyles.warning;
         break;
+      case 'tv-episode':
+        theme = notificationStyles.info;
+        break;
       default:
         theme = notificationStyles.success;
         break;

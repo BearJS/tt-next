@@ -7,7 +7,7 @@ export const H1 = styled.h1`
 `;
 
 export const FloatingCard = styled.div`
-  background: rgba(221, 221, 221, 0.4);
+  background: rgba(221, 221, 221, 0.8);
   position: fixed;
   margin: ${(props) => props.theme.defaultPadding};
   padding: ${(props) => props.theme.defaultPadding};
@@ -45,7 +45,13 @@ export const NotificationMessage = styled.div<{
     const {
       type,
       boxShadow,
-      theme: {borderRadius, padding, notificationStyles, boxShadowMenu, border},
+      theme: {
+        borderRadius,
+        padding,
+        notificationStyles,
+        boxShadow: boxShadowStyles,
+        border,
+      },
       mb,
     } = props;
     return css`
@@ -58,7 +64,7 @@ export const NotificationMessage = styled.div<{
       ${padding};
       ${borderRadius};
       ${border};
-      ${boxShadow && boxShadowMenu};
+      ${boxShadow && boxShadowStyles};
 
       &:last-child {
         ${mb ? '' : `margin-bottom: 0;`};

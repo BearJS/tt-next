@@ -14,16 +14,22 @@ const LoadingMessage = styled(FloatingCard)`
   justify-content: center;
 `;
 
-const SearchStatus: FC<{term: string; resultsCount: number; isLoading: boolean}> = ({
-  term,
-  isLoading,
-  resultsCount,
-}) => {
+const SearchStatus: FC<{
+  term: string;
+  resultsCount: number;
+  isLoading: boolean;
+  currentLimit: number;
+  defaultLimit: number;
+}> = ({term, isLoading, resultsCount, currentLimit, defaultLimit}) => {
   if (isLoading) {
     return (
       <LoadingMessage role="alert">
         <Spinner />
-        <div>Retrieving results form search term: &quot;{term}&quot;</div>
+        <div>
+          Retrieving{currentLimit > defaultLimit ? ' more ' : ' '}results for search term:
+          &quot;{term}
+          &quot;
+        </div>
       </LoadingMessage>
     );
   }

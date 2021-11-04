@@ -163,10 +163,11 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const Styles: FC = ({children}) => (
+const StylesProvider: FC = ({children}) => (
   <ThemeProvider theme={theme}>
     <GlobalStyle />
     {children}
   </ThemeProvider>
 );
-export default Styles;
+
+export default StylesProvider;

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import styled from 'styled-components';
 import Notification from './Notification';
-import {useAppSelector} from '../../app/hooks';
+import {useAppSelector} from '../../app/hooks/useRedux';
 
 const Container = styled.section`
   position: fixed;

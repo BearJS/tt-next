@@ -1,5 +1,5 @@
 import {createSlice, ActionCreatorWithPayload} from '@reduxjs/toolkit';
-import {uniqueId} from '../../utils';
+import {uniqueId} from '../../../utils';
 
 const initialState: NotificationState = [];
 

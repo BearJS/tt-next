@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Fieldset from './Fieldset';
-import useForm from '../hooks/useForm';
+import useForm from '../app/hooks/useForm';
 import Input from './Input';
 import Button from './Button';
 import {FormRequiredFields, H1} from './wrappers';
-import {useAppDispatch, useAppSelector} from '../app/hooks';
-import {searchByArtistCollectionSong} from '../app/state/searchReducer';
-import {AppDispatch} from '../app/state/store';
+import {useAppDispatch, useAppSelector} from '../app/hooks/useRedux';
+import {searchByArtistCollectionSong} from '../app/providers/redux/searchReducer';
 import SearchResultCard from './SearchResultCard';
 import SearchStatus from './SearchStatus';
-import useScrollToBottom from '../hooks/useScrollToBottom';
+import useScrollToBottom from '../app/hooks/useScrollToBottom';
 import Notifications from './notifications/Notifications';
 
 const FormStyles = styled.form`
@@ -37,7 +36,7 @@ const initialFormValues: FormValues = {
 const defaultLimit = 10;
 
 const SearchForm = () => {
-  const dispatch: AppDispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const [limit, setLimit] = useState(defaultLimit);
   const {results, loading} = useAppSelector((state) => state.search);
   const {formValues, handleChange} = useForm<FormValues>({
@@ -92,7 +91,13 @@ const SearchForm = () => {
           Submit
         </Button>
       </Fieldset>
-      <SearchStatus term={term} resultsCount={resultsCount} isLoading={isLoading} />
+      <SearchStatus
+        currentLimit={limit}
+        defaultLimit={defaultLimit}
+        term={term}
+        resultsCount={resultsCount}
+        isLoading={isLoading}
+      />
       <Grid>
         {results.map((i: iTunesSearchResult) => (
           <SearchResultCard

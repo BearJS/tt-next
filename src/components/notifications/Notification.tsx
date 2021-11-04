@@ -1,10 +1,9 @@
 import React, {FC} from 'react';
-import {useDispatch} from 'react-redux';
-import {removeNotification} from '../../app/state/notificationReducer';
+import {removeNotification} from '../../app/providers/redux/notificationReducer';
 import {H4, NotificationMessage} from '../wrappers';
 import FaTimes from '../Icons/FaTimes';
 import {uniqueId} from '../../utils';
-import {useAppDispatch} from '../../app/hooks';
+import {useAppDispatch} from '../../app/hooks/useRedux';
 
 interface Props {
   notification: NotificationMessage;
