@@ -12,6 +12,7 @@ export const FloatingCard = styled.div`
   margin: ${(props) => props.theme.defaultPadding};
   padding: ${(props) => props.theme.defaultPadding};
   right: 15px;
+  bottom: 15px;
   ${(props) => props.theme.boxShadow};
 `;
 

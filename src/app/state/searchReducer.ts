@@ -26,11 +26,22 @@ export const searchByArtistCollectionSong = createAsyncThunk<
 
     const {results} = await response.json();
 
-    if (results.length === 0) {
+    const resultsCount = results.length;
+
+    if (resultsCount === 0) {
       dispatch(
         addNotification({
           type: 'warning',
-          message: `No results found for term "${query.term}"`,
+          message: `No results found for search term "${query.term}"`,
+        })
+      );
+    }
+
+    if (resultsCount === 200) {
+      dispatch(
+        addNotification({
+          type: 'info',
+          message: `You have reached the search limit of 200 results. No more tracks will be displayed. Please refine your search if you do not see the result you are after.`,
         })
       );
     }

@@ -4,7 +4,6 @@ import Spinner from './Spinner';
 import {FloatingCard} from './wrappers';
 
 const LoadingMessage = styled(FloatingCard)`
-  bottom: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;

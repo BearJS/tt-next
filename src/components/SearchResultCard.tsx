@@ -43,15 +43,6 @@ const Container = styled.div<{kind: string}>`
 
   dl {
     flex: 1 1 auto;
-
-    dt {
-      font-weight: bold;
-      text-transform: capitalize;
-    }
-
-    dd {
-      margin: 0;
-    }
   }
 `;
 

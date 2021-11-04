@@ -150,6 +150,17 @@ const GlobalStyle = createGlobalStyle`
       outline: ${baseColors.primaryColor} auto 2px;
     }
   }
+
+  dl {
+    dt {
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+
+    dd {
+      margin: 0;
+    }
+  }
 `;
 
 const Styles: FC = ({children}) => (

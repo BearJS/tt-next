@@ -20,11 +20,6 @@ const FormStyles = styled.form`
   border-radius: 3px;
 `;
 
-const ResultsCounter = styled(FloatingCard)`
-  display: inline-block;
-  top: 15px;
-`;
-
 interface FormValues {
   term: string;
 }
@@ -33,9 +28,11 @@ const initialFormValues: FormValues = {
   term: '',
 };
 
+const defaultLimit = 10;
+
 const SearchForm = () => {
   const dispatch: AppDispatch = useAppDispatch();
-  const [resultsCount, setResultsCount] = useState(10);
+  const [limit, setLimit] = useState(defaultLimit);
   const {results, loading} = useAppSelector((state) => state.search);
   const {formValues, handleChange} = useForm<FormValues>({
     initialFormValues,
@@ -44,23 +41,25 @@ const SearchForm = () => {
   const isLoading = loading === 'pending';
 
   const {term} = formValues;
-
+  const resultsCount = results.length;
   useScrollToBottom({
     handleScrolledToBottom: (): void => {
-      if (resultsCount < 200) {
-        setResultsCount((prevCount) => prevCount + 10);
+      if (term && limit < 200) {
+        console.log('has term');
+        setLimit((prevCount) => prevCount + defaultLimit);
       }
     },
+    dep: [term, limit],
   });
   useEffect(() => {
-    if (term) {
-      dispatch(searchByArtistCollectionSong({term, limit: `${resultsCount}`}));
+    if (term && resultsCount !== 200) {
+      dispatch(searchByArtistCollectionSong({term, limit: `${limit}`}));
     }
-  }, [resultsCount]);
+  }, [limit]);
 
   const handleClick = (): void => {
-    dispatch(searchByArtistCollectionSong({term, limit: '10'}));
-    setResultsCount(10);
+    dispatch(searchByArtistCollectionSong({term, limit: `${defaultLimit}`}));
+    setLimit(defaultLimit);
   };
 
   return (
@@ -88,19 +87,22 @@ const SearchForm = () => {
       {isLoading && (
         <LoadingIndicator message={`Retrieving results form search term: "${term}"`} />
       )}
-      {results.length ? <ResultsCounter>Results: {results.length}</ResultsCounter> : null}
+      {!isLoading && resultsCount ? (
+        <FloatingCard>
+          <dl>
+            <dt>Search Term</dt>
+            <dd>{term}</dd>
+            <dt>Num. of Results</dt>
+            <dd>{resultsCount}</dd>
+          </dl>
+        </FloatingCard>
+      ) : null}
       {results.map((i: iTunesSearchResult) => (
         <SearchResultCard
           data={i}
           key={`${i.kind}-${i.trackId}-${i.artistId}-${i.collectionId}`}
         />
       ))}
-      {results.length === 200 ? (
-        <div>
-          You have reached the search limit of 200 results. No more tracks will be
-          displayed. Please refine your search if you do not see the result you are after.
-        </div>
-      ) : null}
     </FormStyles>
   );
 };
