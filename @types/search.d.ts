@@ -4,9 +4,24 @@ interface SearchState extends ThunkDefaultState {
 
 type iTunesWrapperType = 'track' | 'collection' | 'artist';
 
+type iTunesKind =
+  | 'book'
+  | 'album'
+  | 'coached-audio'
+  | 'feature-movie'
+  | 'interactive-booklet'
+  | 'music-video'
+  | 'podcast'
+  | 'pdf-podcast'
+  | 'podcast-episode'
+  | 'software-package'
+  | 'song'
+  | 'tv-episode'
+  | 'artist';
+
 interface iTunesSearchResult {
   wrapperType: iTunesWrapperType; // 'artist';
-  kind: string; // 'song';
+  kind: iTunesKind; // 'song';
   artistId: number; // 909253;
   collectionId: number; // 120954021;
   trackId: number; // 120954025;

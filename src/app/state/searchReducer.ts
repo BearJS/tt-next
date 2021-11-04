@@ -41,7 +41,8 @@ export const searchByArtistCollectionSong = createAsyncThunk<
       dispatch(
         addNotification({
           type: 'info',
-          message: `You have reached the search limit of 200 results. No more tracks will be displayed. Please refine your search if you do not see the result you are after.`,
+          heading: 'Search Results Limit Reached',
+          message: `You have reached the search results limit of 200 results. Please refine your search if you do not see the result you are after.`,
         })
       );
     }

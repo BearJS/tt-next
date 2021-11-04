@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {FC, useState} from 'react';
+import {FC} from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 
-const Container = styled.div<{kind: string}>`
+const Container = styled.div<{kind: iTunesKind}>`
   display: flex;
   flex-wrap: wrap;
   ${(props) => props.theme.border};
@@ -19,8 +19,11 @@ const Container = styled.div<{kind: string}>`
       case 'feature-movie':
         background = `background: ${props.theme.notificationStyles.secondary};`;
         break;
+      case 'podcast':
+        background = `background: ${props.theme.notificationStyles.warning};`;
+        break;
       default:
-        background = `background: ${props.theme.notificationStyles.dark};`;
+        background = `background: ${props.theme.notificationStyles.success};`;
         break;
     }
 
@@ -54,12 +57,6 @@ const ListItem: FC<{fieldName: string; value: string}> = ({fieldName, value}) =>
 );
 
 const SearchResultCard: FC<{data: iTunesSearchResult}> = ({data}) => {
-  const [expanded, setExpanded] = useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   const {artistName, collectionName, trackName, artworkUrl100, kind, releaseDate} = data;
   return (
     <Container kind={kind}>

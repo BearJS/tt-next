@@ -1,12 +1,7 @@
 import {createSlice, ActionCreatorWithPayload} from '@reduxjs/toolkit';
 import {uniqueId} from '../../utils';
 
-const initialState: NotificationState = [
-  {type: 'error', heading: 'hello', message: 'cool', id: '1'},
-  {type: 'success', heading: 'hello', message: 'cool', id: '2'},
-  {type: 'warning', heading: 'hello', message: 'cool', id: '3'},
-  {type: 'info', heading: 'hello', message: 'cool', id: '4'},
-];
+const initialState: NotificationState = [];
 
 const slice = createSlice({
   name: 'notifications',
