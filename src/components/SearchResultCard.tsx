@@ -5,10 +5,11 @@ import moment from 'moment';
 
 const Container = styled.div<{kind: iTunesKind}>`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+
   ${(props) => props.theme.border};
-  margin-bottom: 8px;
-  padding: 1em;
+  ${(props) => props.theme.padding};
   ${(props) => {
     let background = '';
 

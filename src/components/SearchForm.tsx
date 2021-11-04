@@ -20,6 +20,12 @@ const FormStyles = styled.form`
   border-radius: 3px;
 `;
 
+const Grid = styled.section`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: ${(props) => props.theme.defaultPadding};
+`;
+
 interface FormValues {
   term: string;
 }
@@ -87,12 +93,14 @@ const SearchForm = () => {
         </Button>
       </Fieldset>
       <SearchStatus term={term} resultsCount={resultsCount} isLoading={isLoading} />
-      {results.map((i: iTunesSearchResult) => (
-        <SearchResultCard
-          data={i}
-          key={`${i.kind}-${i.trackId}-${i.artistId}-${i.collectionId}`}
-        />
-      ))}
+      <Grid>
+        {results.map((i: iTunesSearchResult) => (
+          <SearchResultCard
+            data={i}
+            key={`${i.kind}-${i.trackId}-${i.artistId}-${i.collectionId}`}
+          />
+        ))}
+      </Grid>
     </FormStyles>
   );
 };
