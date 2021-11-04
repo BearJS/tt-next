@@ -7,29 +7,29 @@ const Container = styled.div<{kind: iTunesKind}>`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  ${(props) => props.theme.border};
   ${(props) => props.theme.padding};
   ${(props) => {
-    let background = '';
+    let theme = '';
+    const {notificationStyles} = props.theme;
 
     switch (props.kind) {
       case 'song':
-        background = `background: ${props.theme.notificationStyles.primary};`;
+        theme = notificationStyles.primary;
         break;
       case 'feature-movie':
-        background = `background: ${props.theme.notificationStyles.secondary};`;
+        theme = notificationStyles.secondary;
         break;
       case 'podcast':
-        background = `background: ${props.theme.notificationStyles.warning};`;
+        theme = notificationStyles.warning;
         break;
       default:
-        background = `background: ${props.theme.notificationStyles.success};`;
+        theme = notificationStyles.success;
         break;
     }
 
-    return background;
-  }}
+    return theme;
+  }};
+  color: black;
 
   .img-container {
     width: 100px;
