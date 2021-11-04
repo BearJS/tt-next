@@ -10,4 +10,5 @@ interface ThunkDefaultState {
 
 interface AppState {
   search: SearchState;
+  notifications: NotificationState;
 }

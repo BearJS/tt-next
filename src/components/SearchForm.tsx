@@ -11,6 +11,7 @@ import {AppDispatch} from '../app/state/store';
 import SearchResultCard from './SearchResultCard';
 import LoadingIndicator from './LoadingIndicator';
 import useScrollToBottom from '../hooks/useScrollToBottom';
+import Notifications from './notifications/Notifications';
 
 const FormStyles = styled.form`
   margin: ${(props) => props.theme.defaultPadding};
@@ -52,7 +53,9 @@ const SearchForm = () => {
     },
   });
   useEffect(() => {
-    dispatch(searchByArtistCollectionSong({term, limit: `${resultsCount}`}));
+    if (term) {
+      dispatch(searchByArtistCollectionSong({term, limit: `${resultsCount}`}));
+    }
   }, [resultsCount]);
 
   const handleClick = (): void => {
@@ -68,6 +71,7 @@ const SearchForm = () => {
       }}
     >
       <H1>🎵 Find Your Favourite Tunes 🎵</H1>
+      <Notifications />
       <FormRequiredFields />
       <Fieldset legend="Search by artist, album or song">
         <Input

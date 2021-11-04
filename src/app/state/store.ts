@@ -2,11 +2,13 @@ import logger from 'redux-logger';
 import thunk, {ThunkMiddleware} from 'redux-thunk';
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
 import searchReducer from './searchReducer';
+import notificationReducer from './notificationReducer';
 
 // @ts-ignore
 export const store = configureStore({
   reducer: {
     search: searchReducer,
+    notification: notificationReducer,
   },
   middleware(getDefaultMiddlewares) {
     if (process.env.NODE_ENV !== 'production') {

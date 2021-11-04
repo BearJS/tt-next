@@ -1,5 +1,6 @@
 import {ActionReducerMapBuilder, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {ThunkAPI} from './store';
+import {addNotification} from './notificationReducer';
 
 const name = 'search';
 
@@ -14,7 +15,7 @@ export const searchByArtistCollectionSong = createAsyncThunk<
   `${name}/fetchByIdStatus`,
   async (
     query: iTunesSearchQueryParams,
-    {getState, requestId}
+    {getState, requestId, dispatch}
   ): Promise<iTunesSearchResult[]> => {
     const {currentRequestId, loading} = getState().search;
     if (loading !== 'pending' || requestId !== currentRequestId) {
@@ -24,6 +25,15 @@ export const searchByArtistCollectionSong = createAsyncThunk<
     const response = await fetch(`https://itunes.apple.com/search?${queryString}`);
 
     const {results} = await response.json();
+
+    if (results.length === 0) {
+      dispatch(
+        addNotification({
+          type: 'warning',
+          message: `No results found for term "${query.term}"`,
+        })
+      );
+    }
 
     return results as iTunesSearchResult[];
   }
