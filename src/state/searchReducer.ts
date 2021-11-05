@@ -1,6 +1,7 @@
 import {ActionReducerMapBuilder, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {ThunkAPI} from './store';
 import {addNotification} from './notificationReducer';
+import iTunesSearchAPI from '../api/iTunesSearchAPI';
 
 const name = 'search';
 
@@ -21,11 +22,8 @@ export const searchByArtistCollectionSong = createAsyncThunk<
     if (loading !== 'pending' || requestId !== currentRequestId) {
       return [];
     }
-    const queryString = new URLSearchParams(query as Record<string, string>).toString();
-    const response = await fetch(`https://itunes.apple.com/search?${queryString}`);
 
-    const {results} = await response.json();
-
+    const results = await iTunesSearchAPI(query);
     const resultsCount = results.length;
 
     if (resultsCount === 0) {
