@@ -32,6 +32,9 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 
 export type ThunkAPI = {
   dispatch: AppDispatch;
-  state: AppState;
+  state: {
+    search: SearchState;
+    notifications: NotificationState;
+  };
   rejectValue: SerializedError;
 };

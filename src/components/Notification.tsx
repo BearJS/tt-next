@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
-import {removeNotification} from '../../app/providers/redux/notificationReducer';
-import {H4, NotificationMessage} from '../wrappers';
-import FaTimes from '../Icons/FaTimes';
-import {uniqueId} from '../../utils';
-import {useAppDispatch} from '../../app/hooks/useRedux';
+import {removeNotification} from '../state/notificationReducer';
+import {H4, NotificationMessage} from './wrappers';
+import IconFaTimes from './IconFaTimes';
+import {uniqueId} from '../utils';
+import {useAppDispatch} from '../hooks/useRedux';
 
 interface Props {
   notification: NotificationMessage;
@@ -35,7 +35,7 @@ const Notification: FC<Props> = (props) => {
         title="remove notification"
         aria-label="remove notification"
       >
-        <FaTimes aria-hidden="true" />
+        <IconFaTimes aria-hidden="true" />
       </button>
     </NotificationMessage>
   );

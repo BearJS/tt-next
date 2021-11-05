@@ -7,8 +7,3 @@ interface ThunkDefaultState {
   currentRequestId?: string;
   error?: SerializedError;
 }
-
-interface AppState {
-  search: SearchState;
-  notifications: NotificationState;
-}

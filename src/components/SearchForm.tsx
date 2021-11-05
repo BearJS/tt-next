@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Fieldset from './Fieldset';
-import useForm from '../app/hooks/useForm';
+import useForm from '../hooks/useForm';
 import Input from './Input';
 import Button from './Button';
 import {FormRequiredFields, H1} from './wrappers';
-import {useAppDispatch, useAppSelector} from '../app/hooks/useRedux';
-import {searchByArtistCollectionSong} from '../app/providers/redux/searchReducer';
+import {useAppDispatch, useAppSelector} from '../hooks/useRedux';
+import {searchByArtistCollectionSong} from '../state/searchReducer';
 import SearchResultCard from './SearchResultCard';
 import SearchStatus from './SearchStatus';
-import useScrollToBottom from '../app/hooks/useScrollToBottom';
-import Notifications from './notifications/Notifications';
+import useScrollToBottom from '../hooks/useScrollToBottom';
+import Notifications from './Notifications';
 
 const FormStyles = styled.form`
   margin: ${(props) => props.theme.defaultPadding};

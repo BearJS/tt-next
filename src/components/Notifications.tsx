@@ -1,14 +1,14 @@
 import React, {FC} from 'react';
 import styled from 'styled-components';
 import Notification from './Notification';
-import {useAppSelector} from '../../app/hooks/useRedux';
+import {useAppSelector} from '../hooks/useRedux';
 
 const Container = styled.section`
   position: fixed;
   z-index: 9;
   top: ${(props) => props.theme.defaultPadding};
   right: ${(props) => props.theme.defaultPadding};
-  width: 300px;
+  width: 400px;
 `;
 
 const Notifications: FC = () => {

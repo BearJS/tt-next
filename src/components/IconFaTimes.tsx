@@ -1,6 +1,6 @@
 import React, {FC, SVGProps} from 'react';
 
-const FaTimes: FC<SVGProps<SVGSVGElement>> = (props) => (
+const IconFaTimes: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     stroke="currentColor"
     fill="currentColor"
@@ -18,4 +18,4 @@ const FaTimes: FC<SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-export default FaTimes;
+export default IconFaTimes;
