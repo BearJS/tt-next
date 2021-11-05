@@ -5,7 +5,7 @@ import iTunesSearchAPI from '../api/iTunesSearchAPI';
 
 const name = 'search';
 
-export const searchByArtistCollectionSong = createAsyncThunk<
+export const fetchTracks = createAsyncThunk<
   // Return type of the payload creator
   iTunesSearchResult[],
   // First argument to the payload creator
@@ -13,7 +13,7 @@ export const searchByArtistCollectionSong = createAsyncThunk<
   // Types for ThunkAPI
   ThunkAPI
 >(
-  `${name}/fetchByIdStatus`,
+  `${name}/fetchTracks`,
   async (
     query: iTunesSearchQueryParams,
     {getState, requestId, dispatch}
@@ -68,13 +68,13 @@ const searchSlice = createSlice({
   extraReducers: (builder: ActionReducerMapBuilder<SearchState>) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder
-      .addCase(searchByArtistCollectionSong.pending, (state, action) => {
+      .addCase(fetchTracks.pending, (state, action) => {
         if (state.loading === 'idle') {
           state.loading = 'pending';
           state.currentRequestId = action.meta.requestId;
         }
       })
-      .addCase(searchByArtistCollectionSong.fulfilled, (state, action) => {
+      .addCase(fetchTracks.fulfilled, (state, action) => {
         const {requestId} = action.meta;
         if (state.loading === 'pending' && state.currentRequestId === requestId) {
           state.loading = 'idle';
@@ -82,7 +82,7 @@ const searchSlice = createSlice({
           state.currentRequestId = undefined;
         }
       })
-      .addCase(searchByArtistCollectionSong.rejected, (state, action) => {
+      .addCase(fetchTracks.rejected, (state, action) => {
         const {requestId} = action.meta;
         if (state.loading === 'pending' && state.currentRequestId === requestId) {
           state.loading = 'idle';

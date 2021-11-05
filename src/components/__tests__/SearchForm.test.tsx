@@ -12,14 +12,16 @@ import iTunesSearchAPIMock from '../../api/__mocks__/iTunesSearchAPIMock';
 let sut;
 let input;
 let button;
+let dispatch;
 
 jest.mock('../../hooks/useRedux');
 jest.mock('../../api/iTunesSearchAPI');
 
 const setup = () => {
+  dispatch = jest.fn();
   useAppSelector.mockImplementation(useAppSelectorMock);
   // need to do this as we are calling const dispatch = useAppDispatch() in our component
-  useAppDispatch.mockImplementation(() => jest.fn);
+  useAppDispatch.mockImplementation(() => dispatch);
   // iTunesSearchAPI.mockImplementation(iTunesSearchAPIMock);
 
   sut = render(
@@ -48,12 +50,14 @@ describe('SearchForm', () => {
     tearDown();
   });
 
-  describe('render', () => {
-    it('renders submit button', () => {
+  describe('initial render', () => {
+    it('renders a disabled submit button', () => {
       expect(button).toBeInTheDocument();
+      expect(button).toHaveAttribute('disabled');
     });
-    it('renders an input for the search term', () => {
+    it('renders an input for the search term without value', () => {
       expect(input).toBeInTheDocument();
+      expect(input).toHaveValue('');
     });
   });
 
@@ -61,8 +65,13 @@ describe('SearchForm', () => {
     describe('When I conduct a search', () => {
       describe('If there are results', () => {
         it('Then should be able to see the results returning matching Artists, Albums, and/or Songs', () => {
-          mimicSearch('harry potter');
+          const term = 'harry potter';
+          mimicSearch(term);
           expect(useAppDispatch).toHaveBeenCalled();
+          // expect(dispatch).toHaveBeenCalledWith(() => () => ({
+          //   type: 'search/fetchTracks',
+          //   payload: {term, limit: '10'},
+          // }));
           // expect(searchByArtistCollectionSong).toHaveBeenCalled();
           // expect(iTunesSearchAPI).toHaveBeenCalled();
           expect(input).toBeInTheDocument();

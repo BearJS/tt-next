@@ -6,7 +6,7 @@ import Input from './Input';
 import Button from './Button';
 import {FormRequiredFields, H1} from './wrappers';
 import {useAppDispatch, useAppSelector} from '../hooks/useRedux';
-import {searchByArtistCollectionSong} from '../state/searchReducer';
+import {fetchTracks} from '../state/searchReducer';
 import SearchResultCard from './SearchResultCard';
 import SearchStatus from './SearchStatus';
 import useScrollToBottom from '../hooks/useScrollToBottom';
@@ -60,12 +60,12 @@ const SearchForm = () => {
   // Incrementing the limit will trigger the search
   useEffect(() => {
     if (term) {
-      dispatch(searchByArtistCollectionSong({term, limit: `${limit}`}));
+      dispatch(fetchTracks({term, limit: `${limit}`}));
     }
   }, [limit]);
 
   const handleClick = (): void => {
-    dispatch(searchByArtistCollectionSong({term, limit: `${defaultLimit}`}));
+    dispatch(fetchTracks({term, limit: `${defaultLimit}`}));
     setLimit(defaultLimit);
   };
 
