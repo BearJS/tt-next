@@ -1,4 +1,4 @@
-import {RootState} from '../state/store';
+import {RootState} from '../../state/store';
 
 export const stateMock: RootState = {
   notification: [],

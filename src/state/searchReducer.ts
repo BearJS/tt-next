@@ -18,9 +18,12 @@ export const searchByArtistCollectionSong = createAsyncThunk<
     query: iTunesSearchQueryParams,
     {getState, requestId, dispatch}
   ): Promise<iTunesSearchResult[]> => {
-    const {currentRequestId, loading} = getState().search;
+    const {search} = getState();
+    const {currentRequestId, loading} = search;
+
+    // Return existing results if called when pending or when the current reques does not match the requestId
     if (loading !== 'pending' || requestId !== currentRequestId) {
-      return [];
+      return search.results;
     }
 
     const results = await iTunesSearchAPI(query);

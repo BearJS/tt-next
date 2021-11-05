@@ -5,18 +5,22 @@ import userEvent from '@testing-library/user-event';
 import {store} from '../../state/store';
 import SutComponent from '../SearchForm';
 import {useAppDispatch, useAppSelector} from '../../hooks/useRedux';
-import {useAppSelectorMock} from '../../mocks/useReduxMock';
+import {useAppSelectorMock} from '../../hooks/__mocks__/useReduxMock';
+import iTunesSearchAPI from '../../api/iTunesSearchAPI';
+import iTunesSearchAPIMock from '../../api/__mocks__/iTunesSearchAPIMock';
 
 let sut;
 let input;
 let button;
 
 jest.mock('../../hooks/useRedux');
+jest.mock('../../api/iTunesSearchAPI');
 
 const setup = () => {
   useAppSelector.mockImplementation(useAppSelectorMock);
   // need to do this as we are calling const dispatch = useAppDispatch() in our component
   useAppDispatch.mockImplementation(() => jest.fn);
+  // iTunesSearchAPI.mockImplementation(iTunesSearchAPIMock);
 
   sut = render(
     <Provider store={store}>
@@ -59,6 +63,8 @@ describe('SearchForm', () => {
         it('Then should be able to see the results returning matching Artists, Albums, and/or Songs', () => {
           mimicSearch('harry potter');
           expect(useAppDispatch).toHaveBeenCalled();
+          // expect(searchByArtistCollectionSong).toHaveBeenCalled();
+          // expect(iTunesSearchAPI).toHaveBeenCalled();
           expect(input).toBeInTheDocument();
         });
         it('And the results should be limited to 10 items at a time', () => {
